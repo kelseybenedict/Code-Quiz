@@ -42,20 +42,29 @@ startBtn.textContent = "Start";
 buttonDiv.appendChild(startBtn);
 
 // global variables for code below
-var timeRemaining = 60;
+var timeRemaining = 5;
 var score = 0;
 var allScores = [];
 var questionIndex = 0;
 var currentQuestion = quizQuestions[questionIndex];
 // function to start timer
 function startTimer(){
-    // code goes here
+    var clock = setInterval(function() {
+        timeRemaining--;
+        if(timeRemaining <= 0){
+            clearInterval(clock);
+            endQuiz();
+        }
+        timerEl.textContent = timeRemaining;
+        
+    }, 1000)
+
 };
 
 // function to run the quiz
 function startQuiz(){
     // starting the clock
-    //startTimer();
+    startTimer();
     quiz.textContent = "";
     
     function askQuestion(){
