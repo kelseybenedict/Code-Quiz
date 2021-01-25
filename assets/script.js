@@ -42,7 +42,7 @@ startBtn.textContent = "Start";
 buttonDiv.appendChild(startBtn);
 
 // global variables for code below
-var timeRemaining = 5;
+var timeRemaining = 60;
 var score = 0;
 var allScores = [];
 var questionIndex = 0;
@@ -66,7 +66,6 @@ function startQuiz(){
     // starting the clock
     startTimer();
     quiz.textContent = "";
-    
     function askQuestion(){
         // displaying question
         quiz.innerHTML = "<h3>" + currentQuestion.question + "</h3>";
@@ -76,16 +75,13 @@ function startQuiz(){
             answersBtn.textContent = currentQuestion.answers[i];
             answersBtn.addEventListener("click", clickBtn);
             quiz.appendChild(answersBtn);
-        
         }
-
     } askQuestion();
-
-    
 };
 // when the user clicks an answer choice
 function clickBtn(){
     // creating new div for feedback message 
+    // buttonDiv.removeChild(startBtn);
     var feedback = document.createElement("div");
     feedback.textContent = "";
     quiz.textContent = "";
@@ -99,10 +95,10 @@ function clickBtn(){
     else{
         feedback.textContent = "Wrong!";
         // decrease by 10 seconds
+        timeRemaining = timeRemaining - 10;
         questionIndex++
        
     } 
-    questionIndex++
     
     // if check so I don't go out of question range
     if(questionIndex >= quizQuestions.length){
@@ -111,17 +107,29 @@ function clickBtn(){
     }
     currentQuestion= quizQuestions[questionIndex];
     setTimeout(startQuiz, 1000);
-   
-      
 }
+function storeScores(){
+    quiz.innerHTML ="<h3> Scoreboard </h3>";
+    var initials = prompt("Please enter your initials to check out the rankings");
+    if (!initials || initials == null){
+        alert("Please enter initials");
+        return;
+    } else{
+        var userData = {
+            initials: initials,
+            score: score
+        }
+        allScores.push(userData);
+        localStorage.setItem("scores", JSON.stringify(allScores));
+    }
 
-// function for the end of the game, to collect score and name, end the timer?
+}
+// function for the end of the game
 function endQuiz(){
-
-    console.log("done")
+    timeRemaining = 0;
+    quiz.textContent = "";
+    
 };
-// put all questions into an array, get index of each question. set an index = 0 in a variable, then increment through each question
-
 
 // event listener for start button 
 startBtn.addEventListener("click", startQuiz);
