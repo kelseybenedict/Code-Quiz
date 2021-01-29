@@ -139,7 +139,7 @@ function updateDisplay() {
     };
     
     allScores.push(userData);
-    localStorage.setItem("scoreboard", JSON.stringify(allScores));
+    window.localStorage.setItem("scoreboard", JSON.stringify(allScores));
     //localStorage.setItem("scoreboard", JSON.stringify(allScores));
     allScores = JSON.parse(localStorage.getItem("scoreboard"));
     allScores.forEach((element) => {
