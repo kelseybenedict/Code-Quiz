@@ -93,7 +93,6 @@ function startQuiz() {
 // when the user clicks an answer choice
 function clickBtn() {
     // creating new div for feedback message 
-    // buttonDiv.removeChild(startBtn);
     var feedback = document.createElement("div");
     feedback.textContent = "";
     quiz.textContent = "";
@@ -118,15 +117,9 @@ function clickBtn() {
         return;
     }
     currentQuestion = quizQuestions[questionIndex];
-    setTimeout(askQuestion, 300);
+    setTimeout(askQuestion, 1000);
 }
-function storeScores() {
-    // save score and initials to local storage
-    // use object {score: , initials}
-    // make an array to hold object -- use allScores[]
-    // score = remaining time?
-
-};
+// function to update display, ask for user initials
 function updateDisplay() {
     var initials = prompt("Please enter your initials to check out the rankings");
     if (!initials || initials == null){
@@ -140,7 +133,6 @@ function updateDisplay() {
     
     allScores.push(userData);
     window.localStorage.setItem("scoreboard", JSON.stringify(allScores));
-    //localStorage.setItem("scoreboard", JSON.stringify(allScores));
     allScores = JSON.parse(localStorage.getItem("scoreboard"));
     allScores.forEach((element) => {
         var scoreDiv = document.createElement("div");
@@ -156,22 +148,6 @@ function getLocalScores() {
     localStorage.setItem("scoreboard", JSON.stringify(allScores));
     allScores = JSON.parse(localStorage.getItem("scoreboard"));
 };
-
-
-
-// if (!initials || initials == null){
-//     alert("Please enter initials");
-//     return;
-// } else{
-//     var userData = {
-//         initials: initials,
-//         score: score
-//     }
-//     allScores.push(userData);
-//     localStorage.setItem("scores", JSON.stringify(allScores));
-// }
-
-
 // function for the end of the game
 function endQuiz() {
     // show scoreboard
@@ -179,8 +155,6 @@ function endQuiz() {
     // display local storage scores from storage
     //getLocalScores();
     updateDisplay();
-    // store score
-    storeScores();
     //startQuiz();
     return;
 };
